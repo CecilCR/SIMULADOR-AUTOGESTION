@@ -786,10 +786,10 @@
       };
 
       updateUI();
-      showScenarioTransition(intervention);
+      showScenarioTransition(intervention, type);
     }
 
-    function showScenarioTransition(intervention) {
+    function showScenarioTransition(intervention, type) {
       const moreScenariosLeft = currentScenarioIndex < scenarios.length - 1;
 
       transitionBox.classList.remove("hidden");
@@ -797,7 +797,7 @@
         <span class="pill">Escenario completado</span>
         <h3>${buildScenarioInsight()}</h3>
         <p><strong>Intervención elegida:</strong> ${intervention.title}. ${intervention.description}</p>
-        <p><strong>Pregunta de reflexión:</strong> ${buildReflectionQuestion()}</p>
+        <p><strong>Pregunta de reflexión:</strong> ${buildReflectionQuestion(type)}</p>
         ${
           moreScenariosLeft
             ? `<button id="nextScenarioBtn" type="button">Continuar al escenario ${currentScenarioIndex + 2}</button>`
@@ -830,7 +830,19 @@
       return "En este escenario intentaste sostener autoridad y control frente a la amenaza percibida.";
     }
 
-    function buildReflectionQuestion() {
+    function buildReflectionQuestion(interventionType) {
+      if (interventionType === "emocion") {
+        return "¿Qué señal temprana del cuerpo podrías detectar antes para regularte con más precisión?";
+      }
+
+      if (interventionType === "pensamiento") {
+        return "¿Qué otra interpretación de la situación podrías considerar antes de reaccionar?";
+      }
+
+      if (interventionType === "conducta") {
+        return "¿Qué pequeño ajuste en tu manera de intervenir podría mejorar el resultado sin escalar el conflicto?";
+      }
+
       if (scores.status > scores.relation && scores.status > scores.regulation) {
         return "¿Qué te activa más: sentirte desautorizado o sentir que no podrás influir en la situación?";
       }
