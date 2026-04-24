@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laboratorio de Respuestas Emocionales</title>
+  <style>
+    :root {
+      --bg: #f4efe7;
+      --bg-deep: #e7ecef;
+      --panel: rgba(255, 251, 245, 0.92);
+      --panel-strong: #fffdf8;
+      --text: #1f2735;
+      --muted: #617082;
+      --accent: #16606b;
+      --accent-soft: #e1f2f2;
+      --accent-strong: #0e4a52;
+      --warm: #a85a16;
+      --warm-soft: #fff1e2;
+      --border: rgba(19, 35, 56, 0.12);
+      --shadow: 0 18px 48px rgba(31, 39, 53, 0.12);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --success: #2d6a4f;
+      --danger: #9d3d3d;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(22, 96, 107, 0.16), transparent 28%),
+        radial-gradient(circle at top right, rgba(168, 90, 22, 0.14), transparent 24%),
+        linear-gradient(180deg, var(--bg) 0%, #efe6d7 40%, var(--bg-deep) 100%);
+      padding: 24px;
+    }
+
+    .app {
+      max-width: 1160px;
+      margin: 0 auto;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(145deg, rgba(255, 253, 248, 0.97), rgba(247, 241, 231, 0.9));
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      padding: 30px;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -70px;
+      bottom: -100px;
+      width: 260px;
+      height: 260px;
+      background: radial-gradient(circle, rgba(22, 96, 107, 0.18), transparent 70%);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(22, 96, 107, 0.1);
+      color: var(--accent);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-size: 0.82rem;
+    }
+
+    h1 {
+      margin: 16px 0 10px;
+      font-size: clamp(2.2rem, 4.4vw, 3.6rem);
+      line-height: 1.04;
+    }
+
+    .hero p {
+      max-width: 760px;
+      line-height: 1.65;
+      color: var(--muted);
+      margin: 0;
+      font-size: 1.03rem;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 18px;
+      margin-top: 20px;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .panel-pad {
+      padding: 22px;
+    }
+
+    .tag {
+      display: inline-block;
+      margin-bottom: 12px;
+      color: var(--accent);
+      font-size: 0.82rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .progress {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .progress-chip {
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 0.88rem;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(19, 35, 56, 0.08);
+      color: var(--muted);
+    }
+
+    .progress-chip.active {
+      background: var(--accent-soft);
+      color: var(--accent-strong);
+      border-color: rgba(22, 96, 107, 0.18);
+      font-weight: 700;
+    }
+
+    .scenario-grid,
+    .metrics,
+    .options,
+    .intervention-grid,
+    .tips-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .card {
+      background: var(--panel-strong);
+      border: 1px solid rgba(19, 35, 56, 0.08);
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .card strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.96rem;
+    }
+
+    .metric {
+      padding: 16px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(239, 245, 246, 0.95));
+      border: 1px solid rgba(19, 35, 56, 0.1);
+    }
+
+    .metric span {
+      display: block;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-size: 0.76rem;
+      margin-bottom: 6px;
+    }
+
+    .metric strong {
+      font-size: 1.9rem;
+    }
+
+    .metric small {
+      display: block;
+      color: var(--muted);
+      margin-top: 6px;
+      line-height: 1.45;
+    }
+
+    button {
+      width: 100%;
+      border: 1px solid rgba(22, 96, 107, 0.16);
+      border-radius: 18px;
+      padding: 16px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(239, 248, 249, 0.92));
+      color: var(--text);
+      text-align: left;
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+      box-shadow: 0 10px 22px rgba(19, 35, 56, 0.08);
+      font: inherit;
+    }
+
+    button:hover:not(:disabled),
+    button:focus-visible:not(:disabled) {
+      transform: translateY(-2px);
+      border-color: rgba(22, 96, 107, 0.4);
+      box-shadow: 0 14px 28px rgba(19, 35, 56, 0.12);
+      outline: none;
+    }
+
+    button:disabled {
+      opacity: 0.64;
+      cursor: not-allowed;
+    }
+
+    .choice-title {
+      display: block;
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .choice-copy {
+      display: block;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .response,
+    .reflection,
+    .profile-box {
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(22, 96, 107, 0.16);
+      background: linear-gradient(180deg, rgba(225, 242, 242, 0.85), rgba(255, 255, 255, 0.96));
+    }
+
+    .reflection {
+      border-color: rgba(19, 35, 56, 0.08);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(244, 239, 230, 0.94));
+    }
+
+    .profile-box {
+      border-color: rgba(168, 90, 22, 0.18);
+      background: linear-gradient(180deg, rgba(255, 241, 226, 0.92), rgba(255, 255, 255, 0.96));
+    }
+
+    .response h3,
+    .reflection h3,
+    .profile-box h3 {
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+
+    .impact-list {
+      display: grid;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .impact-item,
+    .tip {
+      background: rgba(255, 255, 255, 0.72);
+      border-radius: 12px;
+      padding: 10px 12px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(22, 96, 107, 0.1);
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 0.82rem;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .actions button {
+      width: auto;
+      min-width: 220px;
+    }
+
+    .ghost {
+      background: rgba(255, 255, 255, 0.74);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .footer-note {
+      color: var(--muted);
+      line-height: 1.55;
+      margin-top: 14px;
+    }
+
+    @media (max-width: 900px) {
+      body {
+        padding: 16px;
+      }
+
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .hero,
+      .panel-pad {
+        padding: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <section class="hero">
+      <span class="eyebrow">Simulador pedagógico</span>
+      <h1>Laboratorio de respuestas emocionales bajo presión</h1>
+      <p>
+        Esta herramienta propone varios escenarios de tensión interpersonal y decisión rápida. No busca una única
+        respuesta correcta: busca ayudarte a leer qué proteges cuando reaccionas, qué costo trae esa prioridad y cómo
+        puedes reconducir la situación desde emoción, pensamiento o conducta.
+      </p>
+      <div class="reflection" style="margin-top: 18px;">
+        <span class="pill">Consigna de uso</span>
+        <p>
+          Responde como actuarías en la realidad, no como te gustaría actuar. El valor de la herramienta está en
+          reconocer tu tendencia espontánea para luego reflexionar sobre ella.
+        </p>
+      </div>
+    </section>
+
+    <section class="layout">
+      <div class="panel panel-pad">
+        <span class="tag">Recorrido</span>
+        <div id="progress" class="progress" aria-label="Progreso por escenarios"></div>
+
+        <section id="scenarioArea">
+          <div class="card">
+            <strong id="scenarioTitle">Escenario</strong>
+            <span id="scenarioPrompt"></span>
+          </div>
+
+          <div class="scenario-grid" style="margin-top: 12px;">
+            <div class="card">
+              <strong>Evento</strong>
+              <span id="eventText"></span>
+            </div>
+            <div class="card">
+              <strong>Contexto interno</strong>
+              <span id="internalText"></span>
+            </div>
+            <div class="card">
+              <strong>Foco de aprendizaje</strong>
+              <span id="learningText"></span>
+            </div>
+          </div>
+
+          <div class="card" style="margin-top: 16px;">
+            <strong>Decisión</strong>
+            ¿Qué estrategia eliges en este momento?
+            <div id="options" class="options" style="margin-top: 14px;"></div>
+          </div>
+        </section>
+
+        <section id="feedback" class="response hidden" aria-live="polite"></section>
+        <section id="resim" class="response hidden" aria-live="polite"></section>
+        <section id="transitionBox" class="reflection hidden" aria-live="polite"></section>
+        <section id="finalSummary" class="reflection hidden" aria-live="polite"></section>
+
+        <div class="actions">
+          <button id="restartBtn" class="ghost" type="button">Reiniciar simulación completa</button>
+        </div>
+      </div>
+
+      <aside class="panel panel-pad">
+        <span class="tag">Indicadores globales</span>
+        <div class="reflection" style="margin-top: 0; margin-bottom: 14px;">
+          <span class="pill">Qué se aprecia aquí</span>
+          <p>
+            Estos indicadores no evalúan si tu respuesta fue "correcta" o "incorrecta". Muestran qué aspectos de tu
+            actuación quedaron más fortalecidos o más comprometidos en cada decisión: el foco en la tarea, el cuidado
+            del vínculo, la presencia frente a otros y la capacidad de regular tu reacción.
+          </p>
+        </div>
+        <div class="metrics">
+          <div class="metric">
+            <span>Resultado</span>
+            <strong id="task">0</strong>
+            <small>Capacidad para preservar foco, claridad técnica y avance del objetivo.</small>
+          </div>
+          <div class="metric">
+            <span>Estatus</span>
+            <strong id="status">0</strong>
+            <small>Capacidad para sostener autoridad, presencia y percepción de competencia.</small>
+          </div>
+          <div class="metric">
+            <span>Relación</span>
+            <strong id="relation">0</strong>
+            <small>Capacidad para cuidar el vínculo y reducir el deterioro interpersonal.</small>
+          </div>
+          <div class="metric">
+            <span>Regulación</span>
+            <strong id="regulation">0</strong>
+            <small>Capacidad para reconocer activación y responder con mayor control.</small>
+          </div>
+        </div>
+
+        <section id="profileBox" class="profile-box">
+          <span class="pill">Perfil emergente</span>
+          <h3 id="profileTitle">Aún en exploración</h3>
+          <p id="profileDescription">
+            Tu perfil se irá definiendo a medida que avances por los escenarios y acumules decisiones.
+          </p>
+        </section>
+
+        <section class="reflection">
+          <span class="pill">Uso pedagógico</span>
+          <p id="phaseLabel">
+            <strong>Fase actual:</strong> Elegir una respuesta inicial para el escenario 1.
+          </p>
+          <p class="footer-note">
+            El aprendizaje se apoya en tres niveles: qué sentiste, qué interpretaste y qué hiciste. Cambiar uno puede
+            alterar el resultado global.
+          </p>
+        </section>
+      </aside>
+    </section>
+  </main>
+
+  <script>
+    const initialScores = {
+      task: 0,
+      status: 0,
+      relation: 0,
+      regulation: 0
+    };
+
+    const scenarios = [
+      {
+        title: "Escenario 1: Presentación cuestionada en público",
+        prompt: "Estás presentando un proyecto clave frente a tu equipo y tu jefatura.",
+        event: 'Tu jefe interrumpe y dice: "Esto no está al nivel esperado".',
+        internal: 'Piensas "esto es injusto" y notas tensión en el pecho, calor en la cara y urgencia por defenderte.',
+        learning: "Distinguir entre reacción defensiva, regulación emocional e investigación orientada al criterio.",
+        options: [
+          {
+            id: "A",
+            title: "Defender tu análisis en el momento",
+            copy: "Sostienes tu posición para proteger tu credibilidad frente al grupo.",
+            score: { task: 1, status: 3, relation: -2, regulation: -1 },
+            feedback: "Proteges estatus y presencia, pero elevas el riesgo de escalada interpersonal.",
+            impacts: [
+              "Afirma tu competencia en público.",
+              "Puede sonar reactivo o desafiante.",
+              "La necesidad de reparar la injusticia domina la escena."
+            ]
+          },
+          {
+            id: "B",
+            title: "Retomar el tema en privado",
+            copy: "Priorizas bajar la tensión pública antes de responder.",
+            score: { task: -1, status: -1, relation: 3, regulation: 1 },
+            feedback: "Cuidas el vínculo inmediato, aunque cedes influencia en el momento crítico.",
+            impacts: [
+              "Reduce fricción visible ante el equipo.",
+              "Puede dejar dudas sobre tu claridad o confianza.",
+              "Contienes la impulsividad, pero aplazas la defensa del trabajo."
+            ]
+          },
+          {
+            id: "C",
+            title: "Pedir el criterio específico a mejorar",
+            copy: "Transformas una crítica global en una conversación más concreta y útil.",
+            score: { task: 3, status: 1, relation: 1, regulation: 3 },
+            feedback: "Recuperas foco técnico y margen de maniobra sin negar la tensión del momento.",
+            impacts: [
+              "Abre información para responder mejor.",
+              "Exige autocontrol para no sonar irónico.",
+              "Convierte activación en indagación estratégica."
+            ]
+          }
+        ]
+      },
+      {
+        title: "Escenario 2: Mensaje hostil de un colega",
+        prompt: "Recibes por chat un mensaje seco de un colega justo antes de una entrega importante.",
+        event: 'El mensaje dice: "Otra vez llegas con cambios de última hora. Así no se puede trabajar".',
+        internal: 'Sientes irritación, aceleración mental y ganas de responder de inmediato para marcar límite.',
+        learning: "Observar cómo interpretas la intención del otro antes de decidir si confrontas, aclaras o regulas.",
+        options: [
+          {
+            id: "A",
+            title: "Responder de forma directa y firme",
+            copy: "Buscas dejar claro que tu trabajo también tiene límites y que no aceptarás un tono injusto.",
+            score: { task: 0, status: 3, relation: -3, regulation: -1 },
+            feedback: "Marcas frontera con claridad, pero puedes endurecer el conflicto y cerrar colaboración futura.",
+            impacts: [
+              "Protege tu posición subjetiva.",
+              "Puede intensificar el intercambio defensivo.",
+              "La emoción ocupa más espacio que el problema operativo."
+            ]
+          },
+          {
+            id: "B",
+            title: "Pedir una pausa y aclarar por llamada",
+            copy: "Evitas seguir escalando por texto y buscas un canal con más contexto emocional.",
+            score: { task: 1, status: 0, relation: 2, regulation: 2 },
+            feedback: "Moderaste la reactividad y elegiste un formato con más chances de reparar coordinación.",
+            impacts: [
+              "Reduce malentendidos propios del chat.",
+              "No siempre recupera autoridad de inmediato.",
+              "Muestra regulación y disposición a resolver."
+            ]
+          },
+          {
+            id: "C",
+            title: "Separar tono y problema concreto",
+            copy: "Reconoces la tensión, pero preguntas qué cambio específico está bloqueando la entrega.",
+            score: { task: 3, status: 1, relation: 1, regulation: 3 },
+            feedback: "Desplazas la conversación desde el reproche hacia la coordinación del trabajo.",
+            impacts: [
+              "Recupera foco y utilidad.",
+              "Puede sentirse frío si el otro espera validación emocional.",
+              "Favorece una lectura menos personal de la fricción."
+            ]
+          }
+        ]
+      },
+      {
+        title: "Escenario 3: Cuestionamiento de una decisión con tu equipo",
+        prompt: "En una reunión, una persona del equipo cuestiona una decisión tuya frente a todos.",
+        event: 'Dice: "Nunca nos consultaste de verdad, solo decidiste y luego nos avisaste".',
+        internal: 'Sientes mezcla de vergüenza, enojo y necesidad de recuperar el control de la reunión.',
+        learning: "Identificar cuándo defender liderazgo ayuda y cuándo conviene abrir escucha sin perder conducción.",
+        options: [
+          {
+            id: "A",
+            title: "Justificar tu decisión con rapidez",
+            copy: "Intentas recuperar control mostrando razones y urgencia de contexto.",
+            score: { task: 2, status: 2, relation: -2, regulation: 0 },
+            feedback: "Proteges la lógica de tu decisión, pero podrías reforzar la sensación de no haber escuchado.",
+            impacts: [
+              "Recupera marco y narrativa.",
+              "Puede invalidar la necesidad de participación del equipo.",
+              "Mantiene conducción, pero no necesariamente legitimidad."
+            ]
+          },
+          {
+            id: "B",
+            title: "Validar la percepción y abrir una ronda breve",
+            copy: "Bajas defensividad y permites que aparezca información relacional relevante.",
+            score: { task: 1, status: 0, relation: 3, regulation: 2 },
+            feedback: "Aumentas confianza y escucha, aunque sacrificas algo de control inmediato sobre el ritmo.",
+            impacts: [
+              "Fortalece legitimidad relacional.",
+              "Puede hacerte sentir expuesto si no marcas límites de tiempo.",
+              "La apertura se vuelve una forma de conducción, no de retirada."
+            ]
+          },
+          {
+            id: "C",
+            title: "Reconocer el punto y reencuadrar el siguiente paso",
+            copy: "Aceptas parcialmente la crítica y propones una acción concreta para reparar proceso.",
+            score: { task: 3, status: 1, relation: 2, regulation: 3 },
+            feedback: "Conviertes el cuestionamiento en una oportunidad de corrección visible y liderazgo más maduro.",
+            impacts: [
+              "Integra escucha con dirección.",
+              "Exige tolerar incomodidad sin entrar en defensa automática.",
+              "Modela responsabilidad sin perder autoridad."
+            ]
+          }
+        ]
+      }
+    ];
+
+    const interventions = {
+      emocion: {
+        title: "Gestionar emoción",
+        description: "Nombras la activación corporal, haces una pausa breve y reduces la probabilidad de responder desde descarga.",
+        score: { regulation: 3 }
+      },
+      pensamiento: {
+        title: "Revisar interpretación",
+        description: "Cambias una lectura cerrada y amenazante por una formulación más útil para decidir mejor.",
+        score: { regulation: 2, task: 1 }
+      },
+      conducta: {
+        title: "Ajustar conducta",
+        description: "Modificas la forma de intervenir para proteger objetivos sin amplificar el conflicto.",
+        score: { task: 2, status: 1, relation: 1 }
+      }
+    };
+
+    let scores = { ...initialScores };
+    let currentScenarioIndex = 0;
+    let selectedOption = null;
+    let selectedIntervention = null;
+    let scenarioResults = [];
+
+    const progressNode = document.getElementById("progress");
+    const scenarioTitle = document.getElementById("scenarioTitle");
+    const scenarioPrompt = document.getElementById("scenarioPrompt");
+    const eventText = document.getElementById("eventText");
+    const internalText = document.getElementById("internalText");
+    const learningText = document.getElementById("learningText");
+    const optionsNode = document.getElementById("options");
+    const feedbackNode = document.getElementById("feedback");
+    const resimNode = document.getElementById("resim");
+    const transitionBox = document.getElementById("transitionBox");
+    const finalSummary = document.getElementById("finalSummary");
+    const phaseLabel = document.getElementById("phaseLabel");
+    const restartBtn = document.getElementById("restartBtn");
+    const profileTitle = document.getElementById("profileTitle");
+    const profileDescription = document.getElementById("profileDescription");
+
+    function updateUI() {
+      document.getElementById("task").textContent = scores.task;
+      document.getElementById("status").textContent = scores.status;
+      document.getElementById("relation").textContent = scores.relation;
+      document.getElementById("regulation").textContent = scores.regulation;
+      updateProfile();
+      renderProgress();
+    }
+
+    function applyScore(delta) {
+      Object.entries(delta).forEach(([key, value]) => {
+        scores[key] += value;
+      });
+    }
+
+    function renderProgress() {
+      progressNode.innerHTML = "";
+      scenarios.forEach((scenario, index) => {
+        const chip = document.createElement("div");
+        chip.className = "progress-chip";
+
+        if (index === currentScenarioIndex && !isSimulationComplete()) {
+          chip.classList.add("active");
+        }
+
+        if (scenarioResults[index]) {
+          chip.textContent = "Escenario " + (index + 1) + " completado";
+        } else {
+          chip.textContent = "Escenario " + (index + 1);
+        }
+
+        progressNode.appendChild(chip);
+      });
+    }
+
+    function loadScenario() {
+      const scenario = scenarios[currentScenarioIndex];
+
+      selectedOption = null;
+      selectedIntervention = null;
+      feedbackNode.classList.add("hidden");
+      resimNode.classList.add("hidden");
+      transitionBox.classList.add("hidden");
+      feedbackNode.innerHTML = "";
+      resimNode.innerHTML = "";
+      transitionBox.innerHTML = "";
+
+      scenarioTitle.textContent = scenario.title;
+      scenarioPrompt.textContent = scenario.prompt;
+      eventText.textContent = scenario.event;
+      internalText.textContent = scenario.internal;
+      learningText.textContent = scenario.learning;
+
+      renderOptions();
+      phaseLabel.innerHTML = "<strong>Fase actual:</strong> Elegir una respuesta inicial para el escenario " + (currentScenarioIndex + 1) + ".";
+      updateUI();
+    }
+
+    function renderOptions() {
+      const scenario = scenarios[currentScenarioIndex];
+      optionsNode.innerHTML = "";
+
+      scenario.options.forEach((option) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.disabled = selectedOption !== null;
+        button.addEventListener("click", () => choose(option.id));
+        button.innerHTML = `
+          <span class="choice-title">${option.id}. ${option.title}</span>
+          <span class="choice-copy">${option.copy}</span>
+        `;
+        optionsNode.appendChild(button);
+      });
+    }
+
+    function choose(optionId) {
+      if (selectedOption !== null) {
+        return;
+      }
+
+      const scenario = scenarios[currentScenarioIndex];
+      const option = scenario.options.find((item) => item.id === optionId);
+      if (!option) {
+        return;
+      }
+
+      selectedOption = option;
+      applyScore(option.score);
+      updateUI();
+      renderOptions();
+
+      feedbackNode.classList.remove("hidden");
+      feedbackNode.innerHTML = `
+        <h3>Lectura estratégica</h3>
+        <p><strong>Elegiste:</strong> ${option.title}</p>
+        <p>${option.feedback}</p>
+        <div class="impact-list">
+          ${option.impacts.map((impact) => `<div class="impact-item">${impact}</div>`).join("")}
+        </div>
+      `;
+
+      resimNode.classList.remove("hidden");
+      resimNode.innerHTML = `
+        <h3>Re-simulación estratégica</h3>
+        <p>Elige un punto de intervención para mejorar el desenlace de este escenario.</p>
+        <p>
+          Esta parte explora <strong>dónde</strong> podrías intervenir en tu respuesta:
+          regular lo que sientes, revisar cómo interpretas la situación o ajustar lo que haces.
+          No mide si eres "bueno" o "malo", sino qué tipo de cambio tendría más impacto en tu manera de responder.
+        </p>
+        <div class="intervention-grid">
+          <button type="button" data-intervention="emocion">
+            <span class="choice-title">Gestionar emoción</span>
+            <span class="choice-copy">Regular la activación corporal y bajar la reacción impulsiva.</span>
+          </button>
+          <button type="button" data-intervention="pensamiento">
+            <span class="choice-title">Revisar interpretación</span>
+            <span class="choice-copy">Cambiar la lectura mental de la situación para responder con más amplitud.</span>
+          </button>
+          <button type="button" data-intervention="conducta">
+            <span class="choice-title">Ajustar conducta</span>
+            <span class="choice-copy">Modificar la respuesta visible para intervenir de forma más efectiva.</span>
+          </button>
+        </div>
+      `;
+
+      Array.from(resimNode.querySelectorAll("button")).forEach((button) => {
+        button.addEventListener("click", () => intervene(button.dataset.intervention));
+      });
+
+      phaseLabel.innerHTML = "<strong>Fase actual:</strong> Elegir un punto de intervención para reconducir la respuesta.";
+    }
+
+    function intervene(type) {
+      if (!selectedOption || selectedIntervention !== null) {
+        return;
+      }
+
+      const intervention = interventions[type];
+      if (!intervention) {
+        return;
+      }
+
+      selectedIntervention = intervention;
+      applyScore(intervention.score);
+
+      Array.from(resimNode.querySelectorAll("button")).forEach((button) => {
+        button.disabled = true;
+      });
+
+      scenarioResults[currentScenarioIndex] = {
+        scenarioTitle: scenarios[currentScenarioIndex].title,
+        optionTitle: selectedOption.title,
+        interventionTitle: intervention.title
+      };
+
+      updateUI();
+      showScenarioTransition(intervention);
+    }
+
+    function showScenarioTransition(intervention) {
+      const moreScenariosLeft = currentScenarioIndex < scenarios.length - 1;
+
+      transitionBox.classList.remove("hidden");
+      transitionBox.innerHTML = `
+        <span class="pill">Escenario completado</span>
+        <h3>${buildScenarioInsight()}</h3>
+        <p><strong>Intervención elegida:</strong> ${intervention.title}. ${intervention.description}</p>
+        <p><strong>Pregunta de reflexión:</strong> ${buildReflectionQuestion()}</p>
+        ${
+          moreScenariosLeft
+            ? `<button id="nextScenarioBtn" type="button">Continuar al escenario ${currentScenarioIndex + 2}</button>`
+            : `<button id="finishBtn" type="button">Ver lectura final personalizada</button>`
+        }
+      `;
+
+      if (moreScenariosLeft) {
+        document.getElementById("nextScenarioBtn").addEventListener("click", goToNextScenario);
+      } else {
+        document.getElementById("finishBtn").addEventListener("click", finishSimulation);
+      }
+
+      phaseLabel.innerHTML = "<strong>Fase actual:</strong> Interpretar el aprendizaje del escenario y continuar.";
+    }
+
+    function buildScenarioInsight() {
+      if (scores.regulation >= scores.task && scores.regulation >= scores.status) {
+        return "En este escenario ganaste margen interno: la regulación empezó a ordenar mejor tu respuesta.";
+      }
+
+      if (scores.task >= scores.relation && scores.task >= scores.status) {
+        return "En este escenario priorizaste destrabar el problema y recuperar foco operativo.";
+      }
+
+      if (scores.relation >= scores.task) {
+        return "En este escenario apareció con fuerza la prioridad de cuidar el vínculo y bajar fricción.";
+      }
+
+      return "En este escenario intentaste sostener autoridad y control frente a la amenaza percibida.";
+    }
+
+    function buildReflectionQuestion() {
+      if (scores.status > scores.relation && scores.status > scores.regulation) {
+        return "¿Qué te activa más: sentirte desautorizado o sentir que no podrás influir en la situación?";
+      }
+
+      if (scores.relation >= scores.task) {
+        return "¿Cuándo cuidar la relación fortalece tu liderazgo y cuándo te hace perder demasiada voz?";
+      }
+
+      return "¿Qué señal temprana del cuerpo podrías detectar antes para responder con más precisión?";
+    }
+
+    function goToNextScenario() {
+      currentScenarioIndex += 1;
+      loadScenario();
+    }
+
+    function isSimulationComplete() {
+      return scenarioResults.length === scenarios.length && scenarioResults.every(Boolean);
+    }
+
+    function updateProfile() {
+      const profile = getProfile();
+      profileTitle.textContent = profile.title;
+      profileDescription.textContent = profile.description;
+    }
+
+    function getProfile() {
+      const { task, status, relation, regulation } = scores;
+      const totalAnswered = scenarioResults.filter(Boolean).length;
+
+      if (totalAnswered === 0) {
+        return {
+          title: "Aún en exploración",
+          description: "Tu perfil se irá definiendo a medida que avances por los escenarios y acumules decisiones."
+        };
+      }
+
+      if (regulation >= task && regulation >= relation && regulation >= status) {
+        return {
+          title: "Perfil regulador reflexivo",
+          description: "Tiendes a ganar distancia antes de actuar. Eso favorece respuestas menos impulsivas y más reencuadradas."
+        };
+      }
+
+      if (task >= relation && task >= status && task >= regulation) {
+        return {
+          title: "Perfil orientado al problema",
+          description: "Tu tendencia es recuperar foco, criterio y avance. Su fortaleza es la claridad; su riesgo es dejar fuera el vínculo."
+        };
+      }
+
+      if (relation >= task && relation >= status && relation >= regulation) {
+        return {
+          title: "Perfil cuidador del vínculo",
+          description: "Tiendes a bajar tensión y proteger la relación. Eso facilita cooperación, aunque a veces puede reducir firmeza."
+        };
+      }
+
+      if (status >= task && status >= relation && status >= regulation) {
+        return {
+          title: "Perfil protector del estatus",
+          description: "Buscas sostener autoridad, presencia y respeto. Tu desafío es evitar que esa defensa escale el conflicto."
+        };
+      }
+
+      return {
+        title: "Perfil mixto en desarrollo",
+        description: "Tus respuestas muestran prioridades compartidas. Esa mezcla es útil, pero todavía necesita más diferenciación según contexto."
+      };
+    }
+
+    function getPersonalizedSummary() {
+      const profile = getProfile();
+      const { task, status, relation, regulation } = scores;
+
+      let reading = "";
+      let risk = "";
+      let recommendation = "";
+      let question = "";
+
+      if (profile.title === "Perfil regulador reflexivo") {
+        reading = "Tu fortaleza principal es recuperar espacio mental antes de actuar. Eso reduce reactividad y mejora la calidad de tus decisiones.";
+        risk = "El riesgo aparece si regular se transforma en demora excesiva o en evitar conversaciones difíciles.";
+        recommendation = "Practica combinar pausa interna con una intervención concreta y breve para no perder presencia.";
+        question = "¿Cómo puedes mantener tu regulación sin volver demasiado lenta tu capacidad de influir?";
+      } else if (profile.title === "Perfil orientado al problema") {
+        reading = "Tu patrón dominante es ordenar el caos y volver al criterio. Eso es muy valioso en contextos de presión.";
+        risk = "El riesgo es que el problema técnico absorba todo y deje sin elaborar la dimensión relacional o emocional.";
+        recommendation = "Añade una validación breve del impacto interpersonal antes de pasar al contenido.";
+        question = "¿Qué pequeña señal de reconocimiento al otro mejoraría tu eficacia sin restarte claridad?";
+      } else if (profile.title === "Perfil cuidador del vínculo") {
+        reading = "Tu fortaleza está en preservar cooperación y disminuir fricción. Eso puede sostener entornos más seguros para trabajar.";
+        risk = "El riesgo es ceder demasiado espacio cuando también necesitas marcar criterio o defender tu posición.";
+        recommendation = "Entrena respuestas que combinen calidez con dirección clara, en lugar de optar por una sola.";
+        question = "¿En qué momentos cuidar demasiado la relación hace menos visible tu liderazgo?";
+      } else if (profile.title === "Perfil protector del estatus") {
+        reading = "Tienes sensibilidad alta a la desautorización y respondes intentando sostener presencia y respeto.";
+        risk = "El riesgo es que la defensa de autoridad se vuelva más importante que entender lo que la situación necesita.";
+        recommendation = "Introduce una pregunta de precisión antes de defenderte para convertir amenaza en información.";
+        question = "¿Qué pasa en ti cuando sientes que tu competencia está siendo cuestionada en público?";
+      } else {
+        reading = "Tu desempeño muestra flexibilidad parcial: cambias de objetivo según el escenario, aunque aún sin una estrategia estable.";
+        risk = "El riesgo es responder de forma cambiante sin tener claro qué criterio usas para priorizar.";
+        recommendation = "Antes de reaccionar, define cuál es tu objetivo principal en ese contexto: foco, vínculo, autoridad o regulación.";
+        question = "¿Qué indicador te ayudaría a decidir mejor qué prioridad conviene activar en cada situación?";
+      }
+
+      const balance = `Tu balance acumulado fue: resultado ${task}, estatus ${status}, relación ${relation} y regulación ${regulation}.`;
+
+      return { profile, reading, risk, recommendation, question, balance };
+    }
+
+    function getTips() {
+      const profile = getProfile().title;
+
+      if (profile === "Perfil regulador reflexivo") {
+        return [
+          "Usa una frase puente para intervenir sin perder pausa: 'Déjame precisar el punto clave'.",
+          "Decide de antemano cuánto tiempo das a regular antes de responder.",
+          "Combina respiración breve con una pregunta orientada al criterio."
+        ];
+      }
+
+      if (profile === "Perfil orientado al problema") {
+        return [
+          "Antes de resolver, nombra una emoción o tensión presente en la escena.",
+          "Formula una validación corta: 'Entiendo la preocupación; vayamos al punto concreto'.",
+          "Revisa si tu claridad técnica está dejando fuera necesidades relacionales."
+        ];
+      }
+
+      if (profile === "Perfil cuidador del vínculo") {
+        return [
+          "Practica frases firmes pero no agresivas: 'Quiero cuidar el tono y también aclarar este punto'.",
+          "Define un criterio mínimo que no quieras ceder en situaciones tensas.",
+          "Recuerda que marcar dirección también puede cuidar la relación."
+        ];
+      }
+
+      if (profile === "Perfil protector del estatus") {
+        return [
+          "Detecta la señal corporal que aparece antes de defenderte automáticamente.",
+          "Haz una pregunta de precisión antes de argumentar.",
+          "Separa 'ser cuestionado' de 'ser invalidado': no siempre significan lo mismo."
+        ];
+      }
+
+      return [
+        "Antes de responder, define qué quieres proteger primero en esa situación.",
+        "Observa si tu interpretación inicial está cerrando opciones útiles.",
+        "Ensaya una pregunta de clarificación y una frase de validación como base estable."
+      ];
+    }
+
+    function finishSimulation() {
+      finalSummary.classList.remove("hidden");
+      const summary = getPersonalizedSummary();
+      const tips = getTips();
+
+      finalSummary.innerHTML = `
+        <span class="pill">Lectura final personalizada</span>
+        <h3>${summary.profile.title}</h3>
+        <p>${summary.reading}</p>
+        <p><strong>Riesgo dominante:</strong> ${summary.risk}</p>
+        <p><strong>Recomendación de desarrollo:</strong> ${summary.recommendation}</p>
+        <p><strong>Balance global:</strong> ${summary.balance}</p>
+        <p><strong>Pregunta final de reflexión:</strong> ${summary.question}</p>
+        <div class="tips-list">
+          ${tips.map((tip) => `<div class="tip">${tip}</div>`).join("")}
+        </div>
+        <p class="footer-note">
+          Escenarios completados: ${scenarioResults.map((result) => result.scenarioTitle).join(" | ")}.
+        </p>
+      `;
+
+      phaseLabel.innerHTML = "<strong>Fase actual:</strong> Revisar el perfil emergente y traducirlo en estrategias de mejora.";
+      updateUI();
+    }
+
+    function resetSimulation() {
+      scores = { ...initialScores };
+      currentScenarioIndex = 0;
+      selectedOption = null;
+      selectedIntervention = null;
+      scenarioResults = [];
+      feedbackNode.classList.add("hidden");
+      resimNode.classList.add("hidden");
+      transitionBox.classList.add("hidden");
+      finalSummary.classList.add("hidden");
+      feedbackNode.innerHTML = "";
+      resimNode.innerHTML = "";
+      transitionBox.innerHTML = "";
+      finalSummary.innerHTML = "";
+      loadScenario();
+    }
+
+    restartBtn.addEventListener("click", resetSimulation);
+
+    loadScenario();
+  </script>
+</body>
+</html>
