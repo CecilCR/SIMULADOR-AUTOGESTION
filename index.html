@@ -21,9 +21,6 @@
       --shadow: 0 18px 48px rgba(31, 39, 53, 0.12);
       --radius-xl: 28px;
       --radius-lg: 20px;
-      --radius-md: 14px;
-      --success: #2d6a4f;
-      --danger: #9d3d3d;
     }
 
     * {
@@ -337,9 +334,9 @@
       <span class="eyebrow">Simulador pedagógico</span>
       <h1>Laboratorio de respuestas emocionales bajo presión</h1>
       <p>
-        Esta herramienta propone varios escenarios de tensión interpersonal y decisión rápida. No busca una única
-        respuesta correcta: busca ayudarte a leer qué proteges cuando reaccionas, qué costo trae esa prioridad y cómo
-        puedes reconducir la situación desde emoción, pensamiento o conducta.
+        Esta herramienta propone varios escenarios de tensión interpersonal y de decisión rápida. No busca una única
+        respuesta correcta: busca ayudarte a reconocer qué proteges cuando reaccionas, qué costo puede tener esa
+        prioridad y cómo puedes reconducir la situación desde la emoción, el pensamiento o la conducta.
       </p>
       <div class="reflection" style="margin-top: 18px;">
         <span class="pill">Consigna de uso</span>
@@ -400,14 +397,14 @@
           <p>
             Estos indicadores no evalúan si tu respuesta fue "correcta" o "incorrecta". Muestran qué aspectos de tu
             actuación quedaron más fortalecidos o más comprometidos en cada decisión: el foco en la tarea, el cuidado
-            del vínculo, la presencia frente a otros y la capacidad de regular tu reacción.
+            del vínculo, la presencia frente a otras personas y la capacidad de regular tu reacción.
           </p>
         </div>
         <div class="metrics">
           <div class="metric">
             <span>Resultado</span>
             <strong id="task">0</strong>
-            <small>Capacidad para preservar foco, claridad técnica y avance del objetivo.</small>
+            <small>Capacidad para preservar el foco, la claridad técnica y el avance del objetivo.</small>
           </div>
           <div class="metric">
             <span>Estatus</span>
@@ -422,7 +419,7 @@
           <div class="metric">
             <span>Regulación</span>
             <strong id="regulation">0</strong>
-            <small>Capacidad para reconocer activación y responder con mayor control.</small>
+            <small>Capacidad para reconocer la activación y responder con mayor control.</small>
           </div>
         </div>
 
@@ -462,7 +459,7 @@
         prompt: "Estás presentando un proyecto clave frente a tu equipo y tu jefatura.",
         event: 'Tu jefe interrumpe y dice: "Esto no está al nivel esperado".',
         internal: 'Piensas "esto es injusto" y notas tensión en el pecho, calor en la cara y urgencia por defenderte.',
-        learning: "Distinguir entre reacción defensiva, regulación emocional e investigación orientada al criterio.",
+        learning: "Distinguir entre reacción defensiva, regulación emocional e indagación orientada al criterio.",
         options: [
           {
             id: "A",
@@ -479,42 +476,42 @@
           {
             id: "B",
             title: "Retomar el tema en privado",
-            copy: "Priorizas bajar la tensión pública antes de responder.",
+            copy: "Priorizas bajar la tensión en público antes de responder.",
             score: { task: -1, status: -1, relation: 3, regulation: 1 },
             feedback: "Cuidas el vínculo inmediato, aunque cedes influencia en el momento crítico.",
             impacts: [
-              "Reduce fricción visible ante el equipo.",
+              "Reduce la fricción visible ante el equipo.",
               "Puede dejar dudas sobre tu claridad o confianza.",
               "Contienes la impulsividad, pero aplazas la defensa del trabajo."
             ]
           },
           {
             id: "C",
-            title: "Pedir el criterio específico a mejorar",
-            copy: "Transformas una crítica global en una conversación más concreta y útil.",
+            title: "Pedir el criterio específico que debería mejorar",
+            copy: "Transformas una crítica general en una conversación más concreta y útil.",
             score: { task: 3, status: 1, relation: 1, regulation: 3 },
-            feedback: "Recuperas foco técnico y margen de maniobra sin negar la tensión del momento.",
+            feedback: "Recuperas el foco técnico y el margen de maniobra sin negar la tensión del momento.",
             impacts: [
-              "Abre información para responder mejor.",
+              "Abre información que te permite responder mejor.",
               "Exige autocontrol para no sonar irónico.",
-              "Convierte activación en indagación estratégica."
+              "Convierte la activación en una indagación estratégica."
             ]
           }
         ]
       },
       {
         title: "Escenario 2: Mensaje hostil de un colega",
-        prompt: "Recibes por chat un mensaje de un colega justo antes de una entrega importante.",
+        prompt: "Recibes por chat un mensaje seco de un colega justo antes de una entrega importante.",
         event: 'El mensaje dice: "Otra vez llegas con cambios de última hora. Así no se puede trabajar".',
-        internal: 'Sientes irritación, aceleración mental y ganas de responder de inmediato para marcar límite.',
-        learning: "Observar cómo interpretas la intención del otro antes de decidir si confrontas, aclaras o regulas.",
+        internal: 'Sientes irritación, aceleración mental y ganas de responder de inmediato para marcar un límite.',
+        learning: "Observar cómo interpretas la intención de la otra persona antes de decidir si confrontas, aclaras o regulas.",
         options: [
           {
             id: "A",
             title: "Responder de forma directa y firme",
             copy: "Buscas dejar claro que tu trabajo también tiene límites y que no aceptarás un tono injusto.",
             score: { task: 0, status: 3, relation: -3, regulation: -1 },
-            feedback: "Marcas frontera con claridad, pero puedes endurecer el conflicto y cerrar colaboración futura.",
+            feedback: "Marcas un límite con claridad, pero puedes endurecer el conflicto y cerrar futuras posibilidades de colaboración.",
             impacts: [
               "Protege tu posición subjetiva.",
               "Puede intensificar el intercambio defensivo.",
@@ -524,56 +521,56 @@
           {
             id: "B",
             title: "Pedir una pausa y aclarar por llamada",
-            copy: "Evitas seguir escalando por texto y buscas un canal con más contexto emocional.",
+            copy: "Evitas seguir escalando por escrito y buscas un canal con más contexto emocional.",
             score: { task: 1, status: 0, relation: 2, regulation: 2 },
-            feedback: "Moderaste la reactividad y elegiste un formato con más chances de reparar coordinación.",
+            feedback: "Moderas la reactividad y eliges un formato con más posibilidades de reparar la coordinación.",
             impacts: [
               "Reduce malentendidos propios del chat.",
               "No siempre recupera autoridad de inmediato.",
-              "Muestra regulación y disposición a resolver."
+              "Muestra regulación y disposición para resolver."
             ]
           },
           {
             id: "C",
-            title: "Separar tono y problema concreto",
-            copy: "Reconoces la tensión, pero preguntas qué cambio específico está bloqueando la entrega.",
+            title: "Separar el tono del problema concreto",
+            copy: "Reconoces la tensión del mensaje, pero preguntas qué aspecto concreto está bloqueando la entrega.",
             score: { task: 3, status: 1, relation: 1, regulation: 3 },
-            feedback: "Desplazas la conversación desde el reproche hacia la coordinación del trabajo.",
+            feedback: "Desplazas la conversación del reproche hacia la coordinación del trabajo.",
             impacts: [
               "Recupera foco y utilidad.",
-              "Puede sentirse frío si el otro espera validación emocional.",
+              "Puede sentirse frío si la otra persona espera validación emocional.",
               "Favorece una lectura menos personal de la fricción."
             ]
           }
         ]
       },
       {
-        title: "Escenario 3: Cuestionamiento de una decisión con tu equipo",
+        title: "Escenario 3: Cuestionamiento de una decisión frente al equipo",
         prompt: "En una reunión, una persona del equipo cuestiona una decisión tuya frente a todos.",
         event: 'Dice: "Nunca nos consultaste de verdad, solo decidiste y luego nos avisaste".',
-        internal: 'Sientes mezcla de vergüenza, enojo y necesidad de recuperar el control de la reunión.',
-        learning: "Identificar cuándo defender liderazgo ayuda y cuándo conviene abrir escucha sin perder conducción.",
+        internal: 'Sientes una mezcla de vergüenza, enojo y necesidad de recuperar el control de la reunión.',
+        learning: "Identificar cuándo defender tu liderazgo ayuda y cuándo conviene abrir escucha sin perder conducción.",
         options: [
           {
             id: "A",
             title: "Justificar tu decisión con rapidez",
-            copy: "Intentas recuperar control mostrando razones y urgencia de contexto.",
+            copy: "Intentas recuperar el control mostrando razones y urgencia de contexto.",
             score: { task: 2, status: 2, relation: -2, regulation: 0 },
             feedback: "Proteges la lógica de tu decisión, pero podrías reforzar la sensación de no haber escuchado.",
             impacts: [
               "Recupera marco y narrativa.",
               "Puede invalidar la necesidad de participación del equipo.",
-              "Mantiene conducción, pero no necesariamente legitimidad."
+              "Mantiene la conducción, pero no necesariamente la legitimidad."
             ]
           },
           {
             id: "B",
             title: "Validar la percepción y abrir una ronda breve",
-            copy: "Bajas defensividad y permites que aparezca información relacional relevante.",
+            copy: "Bajas la defensividad y permites que aparezca información relacional relevante.",
             score: { task: 1, status: 0, relation: 3, regulation: 2 },
-            feedback: "Aumentas confianza y escucha, aunque sacrificas algo de control inmediato sobre el ritmo.",
+            feedback: "Aumentas la confianza y la escucha, aunque sacrificas algo de control inmediato sobre el ritmo.",
             impacts: [
-              "Fortalece legitimidad relacional.",
+              "Fortalece la legitimidad relacional.",
               "Puede hacerte sentir expuesto si no marcas límites de tiempo.",
               "La apertura se vuelve una forma de conducción, no de retirada."
             ]
@@ -581,12 +578,12 @@
           {
             id: "C",
             title: "Reconocer el punto y reencuadrar el siguiente paso",
-            copy: "Aceptas parcialmente la crítica y propones una acción concreta para reparar proceso.",
+            copy: "Aceptas parcialmente la crítica y propones una acción concreta para reparar el proceso.",
             score: { task: 3, status: 1, relation: 2, regulation: 3 },
-            feedback: "Conviertes el cuestionamiento en una oportunidad de corrección visible y liderazgo más maduro.",
+            feedback: "Conviertes el cuestionamiento en una oportunidad de corrección visible y de liderazgo más maduro.",
             impacts: [
               "Integra escucha con dirección.",
-              "Exige tolerar incomodidad sin entrar en defensa automática.",
+              "Exige tolerar la incomodidad sin entrar en defensa automática.",
               "Modela responsabilidad sin perder autoridad."
             ]
           }
@@ -597,7 +594,7 @@
     const interventions = {
       emocion: {
         title: "Gestionar emoción",
-        description: "Nombras la activación corporal, haces una pausa breve y reduces la probabilidad de responder desde descarga.",
+        description: "Nombras la activación corporal, haces una pausa breve y reduces la probabilidad de responder desde la descarga.",
         score: { regulation: 3 }
       },
       pensamiento: {
@@ -659,11 +656,9 @@
           chip.classList.add("active");
         }
 
-        if (scenarioResults[index]) {
-          chip.textContent = "Escenario " + (index + 1) + " completado";
-        } else {
-          chip.textContent = "Escenario " + (index + 1);
-        }
+        chip.textContent = scenarioResults[index]
+          ? "Escenario " + (index + 1) + " completado"
+          : "Escenario " + (index + 1);
 
         progressNode.appendChild(chip);
       });
@@ -747,11 +742,11 @@
         <div class="intervention-grid">
           <button type="button" data-intervention="emocion">
             <span class="choice-title">Gestionar emoción</span>
-            <span class="choice-copy">Regular la activación corporal y bajar la reacción impulsiva.</span>
+            <span class="choice-copy">Regular la activación corporal y disminuir la reacción impulsiva.</span>
           </button>
           <button type="button" data-intervention="pensamiento">
             <span class="choice-title">Revisar interpretación</span>
-            <span class="choice-copy">Cambiar la lectura mental de la situación para responder con más amplitud.</span>
+            <span class="choice-copy">Cambiar la interpretación inicial para responder con más amplitud.</span>
           </button>
           <button type="button" data-intervention="conducta">
             <span class="choice-title">Ajustar conducta</span>
@@ -825,11 +820,11 @@
       }
 
       if (scores.task >= scores.relation && scores.task >= scores.status) {
-        return "En este escenario priorizaste destrabar el problema y recuperar foco operativo.";
+        return "En este escenario priorizaste destrabar el problema y recuperar el foco operativo.";
       }
 
       if (scores.relation >= scores.task) {
-        return "En este escenario apareció con fuerza la prioridad de cuidar el vínculo y bajar fricción.";
+        return "En este escenario apareció con fuerza la prioridad de cuidar el vínculo y bajar la fricción.";
       }
 
       return "En este escenario intentaste sostener autoridad y control frente a la amenaza percibida.";
@@ -890,7 +885,7 @@
       if (relation >= task && relation >= status && relation >= regulation) {
         return {
           title: "Perfil cuidador del vínculo",
-          description: "Tiendes a bajar tensión y proteger la relación. Eso facilita cooperación, aunque a veces puede reducir firmeza."
+          description: "Tiendes a bajar la tensión y proteger la relación. Eso facilita la cooperación, aunque a veces puede reducir la firmeza."
         };
       }
 
@@ -903,7 +898,7 @@
 
       return {
         title: "Perfil mixto en desarrollo",
-        description: "Tus respuestas muestran prioridades compartidas. Esa mezcla es útil, pero todavía necesita más diferenciación según contexto."
+        description: "Tus respuestas muestran prioridades compartidas. Esa mezcla es útil, pero todavía necesita más diferenciación según el contexto."
       };
     }
 
@@ -917,27 +912,27 @@
       let question = "";
 
       if (profile.title === "Perfil regulador reflexivo") {
-        reading = "Tu fortaleza principal es recuperar espacio mental antes de actuar. Eso reduce reactividad y mejora la calidad de tus decisiones.";
-        risk = "El riesgo aparece si regular se transforma en demora excesiva o en evitar conversaciones difíciles.";
-        recommendation = "Practica combinar pausa interna con una intervención concreta y breve para no perder presencia.";
+        reading = "Tu fortaleza principal es recuperar espacio mental antes de actuar. Eso reduce la reactividad y mejora la calidad de tus decisiones.";
+        risk = "El riesgo aparece si regularte se transforma en una demora excesiva o en evitar conversaciones difíciles.";
+        recommendation = "Practica combinar la pausa interna con una intervención concreta y breve para no perder presencia.";
         question = "¿Cómo puedes mantener tu regulación sin volver demasiado lenta tu capacidad de influir?";
       } else if (profile.title === "Perfil orientado al problema") {
         reading = "Tu patrón dominante es ordenar el caos y volver al criterio. Eso es muy valioso en contextos de presión.";
         risk = "El riesgo es que el problema técnico absorba todo y deje sin elaborar la dimensión relacional o emocional.";
         recommendation = "Añade una validación breve del impacto interpersonal antes de pasar al contenido.";
-        question = "¿Qué pequeña señal de reconocimiento al otro mejoraría tu eficacia sin restarte claridad?";
+        question = "¿Qué pequeña señal de reconocimiento a la otra persona mejoraría tu eficacia sin restarte claridad?";
       } else if (profile.title === "Perfil cuidador del vínculo") {
-        reading = "Tu fortaleza está en preservar cooperación y disminuir fricción. Eso puede sostener entornos más seguros para trabajar.";
+        reading = "Tu fortaleza está en preservar la cooperación y disminuir la fricción. Eso puede sostener entornos más seguros para trabajar.";
         risk = "El riesgo es ceder demasiado espacio cuando también necesitas marcar criterio o defender tu posición.";
         recommendation = "Entrena respuestas que combinen calidez con dirección clara, en lugar de optar por una sola.";
         question = "¿En qué momentos cuidar demasiado la relación hace menos visible tu liderazgo?";
       } else if (profile.title === "Perfil protector del estatus") {
-        reading = "Tienes sensibilidad alta a la desautorización y respondes intentando sostener presencia y respeto.";
-        risk = "El riesgo es que la defensa de autoridad se vuelva más importante que entender lo que la situación necesita.";
-        recommendation = "Introduce una pregunta de precisión antes de defenderte para convertir amenaza en información.";
+        reading = "Tienes una sensibilidad alta a la desautorización y respondes intentando sostener presencia y respeto.";
+        risk = "El riesgo es que la defensa de la autoridad se vuelva más importante que entender lo que la situación necesita.";
+        recommendation = "Introduce una pregunta de precisión antes de defenderte para convertir la amenaza en información.";
         question = "¿Qué pasa en ti cuando sientes que tu competencia está siendo cuestionada en público?";
       } else {
-        reading = "Tu desempeño muestra flexibilidad parcial: cambias de objetivo según el escenario, aunque aún sin una estrategia estable.";
+        reading = "Tu desempeño muestra una flexibilidad parcial: cambias de objetivo según el escenario, aunque aún sin una estrategia estable.";
         risk = "El riesgo es responder de forma cambiante sin tener claro qué criterio usas para priorizar.";
         recommendation = "Antes de reaccionar, define cuál es tu objetivo principal en ese contexto: foco, vínculo, autoridad o regulación.";
         question = "¿Qué indicador te ayudaría a decidir mejor qué prioridad conviene activar en cada situación?";
@@ -954,8 +949,8 @@
       if (profile === "Perfil regulador reflexivo") {
         return [
           "Usa una frase puente para intervenir sin perder pausa: 'Déjame precisar el punto clave'.",
-          "Decide de antemano cuánto tiempo das a regular antes de responder.",
-          "Combina respiración breve con una pregunta orientada al criterio."
+          "Decide de antemano cuánto tiempo te darás para regularte antes de responder.",
+          "Combina una respiración breve con una pregunta orientada al criterio."
         ];
       }
 
